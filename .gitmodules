@@ -1,0 +1,3 @@
+[submodule "synology"]
+	path = synology
+	url = git@github.com:Hexren/synology.git

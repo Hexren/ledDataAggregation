@@ -3,7 +3,7 @@
  * This file is an example on how to use Synology_Api
  */
 
-set_include_path(dirname(__FILE__).'/library'.PATH_SEPARATOR.get_include_path());
+set_include_path(dirname(__FILE__).'/synology/library'.PATH_SEPARATOR.get_include_path());
 function __autoload($class_name) {
 	$path = str_replace('_', DIRECTORY_SEPARATOR, $class_name);
 
