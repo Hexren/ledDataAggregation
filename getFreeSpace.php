@@ -20,6 +20,8 @@ foreach($shares->shares as $share){
     $freespace = $share->additional->volume_status->freespace/$share->additional->volume_status->totalspace;
 }
 
+$synology->disconnect();
+
 //push data to activeMq
 /*
 $con = new Stomp("tcp://192.168.1.100:61613");
