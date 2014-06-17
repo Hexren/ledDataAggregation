@@ -1,7 +1,10 @@
 <?php
-/**
- * This file is an example on how to use Synology_Api
- */
+
+#call as
+#getFreeSpace.php <ip> <port> <user> <pass>
+#e.g.
+#getFreeSpace.php 127.0.0.1 5000 admin test123
+
 
 set_include_path(dirname(__FILE__).'/synology/library'.PATH_SEPARATOR.get_include_path());
 function __autoload($class_name) {
@@ -11,9 +14,16 @@ function __autoload($class_name) {
 
 }
 
+//args
+$ip = $argv[1];
+$port = $argv[2];
+$user = $argv[3];
+$pass = $argv[4];
+$name = $argv[5];
+
 //get data from synology
-$synology = new Synology_FileStation_Api('192.168.1.83', 5000, 'http', 1);
-$synology->connect('admin', 'sdlkjfhljkdfh435834598345fhjhgjhdgfcvb4564sasopo');
+$synology = new Synology_FileStation_Api($ip, $port, 'http', 1);
+$synology->connect($user, $pass);
 $shares = $synology->getShares(false, 1, 0, 'name', 'asc', True);
 
 foreach($shares->shares as $share){  
@@ -33,7 +43,7 @@ $con->send("/queue/diskSpaceOli", $freespace);
 $ch = curl_init();
 
 // push data to atrium led
-curl_setopt($ch, CURLOPT_URL, "http://192.168.1.61/data/put/diskOli/".$freespace);
+curl_setopt($ch, CURLOPT_URL, "http://192.168.1.61/data/put/".$name."/".$freespace);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_exec($ch);
 curl_close($ch);      
